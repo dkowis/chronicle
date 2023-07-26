@@ -1,4 +1,3 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
@@ -66,24 +65,11 @@ tasks.register<Delete>("clean") {
 }
 
 
-//tasks.named<KotlinCompilationTask<*>>("compileKotlin").configure {
-//    compilerOptions {
-//        //optIn = listOf("kotlin.RequiresOptIn", "kotlin.time.experimentalTime", "kotlinx.coroutines.InternalCoroutinesApi")
-//        freeCompilerArgs.add("-Xuse-experimental=io.ktor.locations.KtorExperimentalLocationsAPI")
-//    }
-//}
 // Allow experimental kotlin features, like coroutines
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
     compilerOptions {
-        //TODO: why doesn't OptIn show up?
-        //optIn.addAll(listOf("kotlin.RequiresOptIn", "kotlin.time.experimentalTime", "kotlinx.coroutines.InternalCoroutinesApi"))
         freeCompilerArgs.add("-Xuse-experimental=io.ktor.locations.KtorExperimentalLocationsAPI")
     }
-//    kotlinOptions.freeCompilerArgs += ["-Xuse-experimental=io.ktor.locations.KtorExperimentalLocationsAPI"]
-//    kotlinOptions.freeCompilerArgs += ["-Xallow-result-return-type"]
-//    kotlinOptions.freeCompilerArgs += ["-Xopt-in=kotlin.RequiresOptIn"]
-//    kotlinOptions.freeCompilerArgs += ["-Xopt-in=kotlin.time.ExperimentalTime"]
-//    kotlinOptions.freeCompilerArgs += ["-Xopt-in=kotlinx.coroutines.InternalCoroutinesApi"]
 }
 
 val installGitHook = tasks.register<Copy>("installGitHook") {

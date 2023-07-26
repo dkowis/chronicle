@@ -49,32 +49,14 @@ android {
         exclude(module = "xpp3")
     }
 
-//    configurations {
-//        all {
-//            exclude module: "xpp3"
-//        }
-//    }
     // Shared code b/w test and androidTest: mocks "n" stuff
     val SHARED_TEST_DIR = "src/testShared/java"
-//    sourceSetsExtension {
-//        getByName("main").java.srcDirs.add(SHARED_TEST_DIR)
-//        getByName("androidTest").java.srcDirs.add(SHARED_TEST_DIR)
-//    }
     sourceSets["main"].java {
         srcDirs(SHARED_TEST_DIR)
     }
     sourceSets["androidTest"].java {
         srcDirs(SHARED_TEST_DIR)
     }
-//    sourceSets {
-//
-//        test {
-//            java.srcDirs += SHARED_TEST_DIR
-//        }
-//        androidTest {
-//            java.srcDirs += SHARED_TEST_DIR
-//        }
-//    }
     kapt {
         arguments {
             arg("room.schemaLocation", "$projectDir/schemas".toString())
@@ -82,13 +64,6 @@ android {
             arg("room.expandProjection", "true")
         }
     }
-//    kotlinOptions {
-//        freeCompilerArgs = listOf("-Xallow-result-return-type")
-//        //I shouldn't have to use any of this.
-////        freeCompilerArgs += ["-opt-in=kotlin.RequiresOptIn"] don't need this
-////        freeCompilerArgs += ["-opt-in=kotlin.time.ExperimentalTime"]
-////        freeCompilerArgs += ["-opt-in=kotlinx.coroutines.InternalCoroutinesApi"]
-//    }
     flavorDimensions += "freeAsInBeer"
     productFlavors {
         create("freeAsInBeer") {
