@@ -303,7 +303,6 @@ fun List<MediaMetadataCompat>.toMediaSource(
     plexPrefsRepo: PlexPrefsRepo,
     dataSourceFactory: DataSource.Factory
 ): ConcatenatingMediaSource {
-
     val concatenatingMediaSource = ConcatenatingMediaSource()
     forEach {
         Timber.i(

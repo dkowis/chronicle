@@ -57,7 +57,7 @@ class OnMediaChangedCallback @Inject constructor(
                         currentlyPlaying.update(
                             book = newBook,
                             track = newTrack,
-                            tracks = newTracks,
+                            tracks = newTracks
                         )
                     }
                     updateNotification(state.state)

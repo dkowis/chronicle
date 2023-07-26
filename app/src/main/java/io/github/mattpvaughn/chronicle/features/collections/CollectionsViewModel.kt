@@ -90,7 +90,7 @@ class CollectionsViewModel(
         allCollections,
         isSortDescending,
         sortKey,
-        arePlayedAudiobooksHidden,
+        arePlayedAudiobooksHidden
     ) { _collections, _isDescending, _sortKey, _hidePlayed ->
         if (_collections.isNullOrEmpty()) {
             return@QuadLiveDataAsync emptyList<Collection>()
@@ -168,7 +168,8 @@ class CollectionsViewModel(
                     minutesSinceLastRefresh > prefsRepo.refreshRateMinutes || bookCount == 0
                 Timber.i(
                     """$minutesSinceLastRefresh minutes since last libraryrefresh,
-                    |${prefsRepo.refreshRateMinutes} needed""".trimMargin()
+                    |${prefsRepo.refreshRateMinutes} needed
+                    """.trimMargin()
                 )
                 if (shouldRefresh) {
                     refreshData()

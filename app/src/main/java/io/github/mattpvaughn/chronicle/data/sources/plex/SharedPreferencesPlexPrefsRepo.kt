@@ -81,6 +81,7 @@ class SharedPreferencesPlexPrefsRepo @Inject constructor(
 
     override var accountAuthToken: String
         get() = getString(PREFS_AUTH_TOKEN_KEY)
+
         @SuppressLint("ApplySharedPref")
         set(value) {
             prefs.edit().putString(PREFS_AUTH_TOKEN_KEY, value).commit()
@@ -94,6 +95,7 @@ class SharedPreferencesPlexPrefsRepo @Inject constructor(
             }
             return moshi.adapter<PlexUser>(PlexUser::class.java).fromJson(userString)
         }
+
         @SuppressLint("ApplySharedPref")
         set(value) {
             if (value == null) {
@@ -113,6 +115,7 @@ class SharedPreferencesPlexPrefsRepo @Inject constructor(
             }
             return PlexLibrary(name, MediaType.ARTIST, id)
         }
+
         @SuppressLint("ApplySharedPref")
         set(value) {
             if (value == null) {
@@ -141,6 +144,7 @@ class SharedPreferencesPlexPrefsRepo @Inject constructor(
 
             return ServerModel(name, connections, id, token, owned)
         }
+
         @SuppressLint("ApplySharedPref")
         set(value) {
             if (value == null) {
@@ -172,6 +176,7 @@ class SharedPreferencesPlexPrefsRepo @Inject constructor(
     // TODO: ensure this is only usable for a certain amount of time
     override var oAuthTempId: Long
         get() = prefs.getLong(PREFS_TEMP_ID, NO_TEMP_ID_FOUND)
+
         @SuppressLint("ApplySharedPref")
         set(value) {
             prefs.edit().putLong(PREFS_TEMP_ID, value).commit()

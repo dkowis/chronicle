@@ -35,7 +35,6 @@ class ModalBottomSheetSpeedChooser : BottomSheetDialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         val binding = ModalBottomSheetSpeedChooserBinding.inflate(inflater, container, false)
         binding.speed = prefs.playbackSpeed
 

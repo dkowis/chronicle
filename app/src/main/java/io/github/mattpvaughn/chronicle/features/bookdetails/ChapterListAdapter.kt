@@ -50,7 +50,8 @@ class ChapterListAdapter(val clickListener: TrackClickListener) :
                 SectionHeaderWrapper(
                     SectionHeaderModel(
                         BottomSheetChooser.FormattableString.ResourceString(
-                            R.string.disc_number, listOf("1")
+                            R.string.disc_number,
+                            listOf("1")
                         )
                     )
                 )

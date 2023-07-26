@@ -34,7 +34,7 @@ import kotlin.math.min
  */
 class DownloadNotificationWorker(
     context: Context,
-    parameters: WorkerParameters,
+    parameters: WorkerParameters
 ) : CoroutineWorker(context, parameters) {
 
     private val fetch: Fetch = Injector.get().fetch()
@@ -398,7 +398,6 @@ class DownloadNotificationWorker(
         avgCompletion: Int,
         showInGroup: Boolean
     ): Notification {
-
         val notificationTitle = applicationContext.getString(
             R.string.download_starting,
             bookTitle,

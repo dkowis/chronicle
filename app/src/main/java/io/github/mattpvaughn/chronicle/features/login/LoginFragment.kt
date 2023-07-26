@@ -51,7 +51,6 @@ class LoginFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         loginViewModel = ViewModelProvider(
             this,
             viewModelFactory

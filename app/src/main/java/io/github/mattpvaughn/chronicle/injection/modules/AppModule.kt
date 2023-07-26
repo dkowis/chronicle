@@ -207,7 +207,7 @@ class AppModule(private val app: Application) {
     @Singleton
     fun frescoConfig(
         @Named(OKHTTP_CLIENT_MEDIA)
-        okHttpClient: OkHttpClient,
+        okHttpClient: OkHttpClient
     ) = OkHttpImagePipelineConfigFactory
         .newBuilder(app, okHttpClient)
         .setCacheKeyFactory(object : DefaultCacheKeyFactory() {

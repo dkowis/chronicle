@@ -141,7 +141,6 @@ class SimpleProgressUpdater @Inject constructor(
         }
         val currentTime = System.currentTimeMillis()
         serviceScope.launch(context = serviceScope.coroutineContext + Dispatchers.IO) {
-
             val bookId: Int = trackRepository.getBookIdForTrack(trackId)
             val track: MediaItemTrack = trackRepository.getTrackAsync(trackId) ?: EMPTY_TRACK
 
@@ -158,7 +157,7 @@ class SimpleProgressUpdater @Inject constructor(
             currentlyPlaying.update(
                 book = book ?: EMPTY_AUDIOBOOK,
                 track = tracks.getActiveTrack(),
-                tracks = tracks,
+                tracks = tracks
             )
 
             // Update local DB
@@ -170,7 +169,7 @@ class SimpleProgressUpdater @Inject constructor(
                     trackId = trackId,
                     bookProgress = bookProgress,
                     tracks = tracks,
-                    bookDuration = bookDuration,
+                    bookDuration = bookDuration
                 )
             }
 

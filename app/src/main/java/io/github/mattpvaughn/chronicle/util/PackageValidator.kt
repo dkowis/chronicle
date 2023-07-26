@@ -219,7 +219,6 @@ class PackageValidator(context: Context, @XmlRes xmlResId: Int) {
         }
 
     private fun buildCertificateWhitelist(parser: XmlResourceParser): Map<String, KnownCallerInfo> {
-
         val certificateWhitelist = LinkedHashMap<String, KnownCallerInfo>()
         try {
             var eventType = parser.next()

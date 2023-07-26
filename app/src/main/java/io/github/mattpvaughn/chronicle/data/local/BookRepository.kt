@@ -405,7 +405,7 @@ class BookRepository @Inject constructor(
     override suspend fun syncAudiobook(
         audiobook: Audiobook,
         tracks: List<MediaItemTrack>,
-        forceNetwork: Boolean,
+        forceNetwork: Boolean
     ): Boolean {
         Timber.i(
             "Loading chapter data. Book ID is ${audiobook.id}, it is ${
@@ -449,7 +449,7 @@ class BookRepository @Inject constructor(
             val merged = Audiobook.merge(
                 network = networkBook,
                 local = audiobook,
-                forceNetwork = forceNetwork,
+                forceNetwork = forceNetwork
             ).copy(
                 progress = tracks.getProgress(),
                 duration = tracks.getDuration(),

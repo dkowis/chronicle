@@ -129,7 +129,7 @@ class PlexSyncScrobbleWorker(
             trackId: Int,
             playbackState: String,
             trackProgress: Long,
-            bookProgress: Long,
+            bookProgress: Long
         ): Data {
             require(trackId != TRACK_NOT_FOUND)
             return workDataOf(

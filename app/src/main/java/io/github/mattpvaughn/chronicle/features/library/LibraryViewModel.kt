@@ -52,7 +52,7 @@ class LibraryViewModel(
         private val prefsRepo: PrefsRepo,
         private val cachedFileManager: ICachedFileManager,
         private val librarySyncRepository: LibrarySyncRepository,
-        private val sharedPreferences: SharedPreferences,
+        private val sharedPreferences: SharedPreferences
     ) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(LibraryViewModel::class.java)) {
@@ -62,7 +62,7 @@ class LibraryViewModel(
                     prefsRepo,
                     cachedFileManager,
                     librarySyncRepository,
-                    sharedPreferences,
+                    sharedPreferences
                 ) as T
             } else {
                 throw IllegalArgumentException("Cannot instantiate $modelClass from LibraryViewModel.Factory")
@@ -210,7 +210,8 @@ class LibraryViewModel(
                     minutesSinceLastRefresh > prefsRepo.refreshRateMinutes || bookCount == 0
                 Timber.i(
                     """$minutesSinceLastRefresh minutes since last libraryrefresh,
-                    |${prefsRepo.refreshRateMinutes} needed""".trimMargin()
+                    |${prefsRepo.refreshRateMinutes} needed
+                    """.trimMargin()
                 )
                 if (shouldRefresh) {
                     refreshData()

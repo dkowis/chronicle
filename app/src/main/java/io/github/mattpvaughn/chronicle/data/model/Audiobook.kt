@@ -51,7 +51,7 @@ data class Audiobook constructor(
     /** The number of times the book has been listened to */
     val viewCount: Long = 0L,
     /** Chapter metadata corresponding to m4b chapter metadata in the m4b files */
-    val chapters: List<Chapter> = emptyList(),
+    val chapters: List<Chapter> = emptyList()
 ) {
 
     companion object {
@@ -71,7 +71,7 @@ data class Audiobook constructor(
             lastViewedAt = dir.lastViewedAt,
             viewedLeafCount = dir.viewedLeafCount,
             leafCount = dir.leafCount,
-            viewCount = dir.viewCount,
+            viewCount = dir.viewCount
         )
 
         /**
@@ -96,7 +96,7 @@ data class Audiobook constructor(
                     isCached = local.isCached,
                     favorited = local.favorited,
                     chapters = local.chapters,
-                    source = local.source,
+                    source = local.source
                 )
             } else {
                 network.copy(
@@ -106,7 +106,7 @@ data class Audiobook constructor(
                     isCached = local.isCached,
                     lastViewedAt = local.lastViewedAt,
                     favorited = local.favorited,
-                    chapters = local.chapters,
+                    chapters = local.chapters
                 )
             }
         }

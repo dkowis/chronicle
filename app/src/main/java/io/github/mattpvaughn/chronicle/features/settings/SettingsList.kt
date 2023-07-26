@@ -25,7 +25,9 @@ class SettingsList : FrameLayout {
     constructor(context: Context) : super(context, null)
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs, 0)
     constructor (context: Context, attrs: AttributeSet?, defStyle: Int) : super(
-        context, attrs, defStyle
+        context,
+        attrs,
+        defStyle
     )
 
     private val prefsRepo = Injector.get().prefsRepo()

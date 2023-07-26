@@ -225,14 +225,16 @@ class MainActivity : AppCompatActivity() {
 
     private fun handleNotificationIntent(intent: Intent?) {
         val openCurrentlyPlaying = intent?.extras?.getBoolean(
-            FLAG_OPEN_ACTIVITY_TO_CURRENTLY_PLAYING, false
+            FLAG_OPEN_ACTIVITY_TO_CURRENTLY_PLAYING,
+            false
         ) == true
         if (openCurrentlyPlaying) {
             viewModel.maximizeCurrentlyPlaying()
         }
 
         val openAudiobookWithId = intent?.extras?.getInt(
-            FLAG_OPEN_ACTIVITY_TO_AUDIOBOOK_WITH_ID, NO_AUDIOBOOK_FOUND_ID
+            FLAG_OPEN_ACTIVITY_TO_AUDIOBOOK_WITH_ID,
+            NO_AUDIOBOOK_FOUND_ID
         ) ?: NO_AUDIOBOOK_FOUND_ID
         if (openAudiobookWithId != NO_AUDIOBOOK_FOUND_ID) {
             lifecycleScope.launch {

@@ -66,7 +66,7 @@ class CurrentlyPlayingViewModel(
         private val prefsRepo: PrefsRepo,
         private val plexConfig: PlexConfig,
         private val currentlyPlaying: CurrentlyPlaying,
-        private val sharedPrefs: SharedPreferences,
+        private val sharedPrefs: SharedPreferences
     ) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(CurrentlyPlayingViewModel::class.java)) {
@@ -119,7 +119,8 @@ class CurrentlyPlayingViewModel(
 
     val chapters: DoubleLiveData<Audiobook?, List<Chapter>, List<Chapter>> =
         DoubleLiveData(
-            audiobook, tracksAsChaptersCache
+            audiobook,
+            tracksAsChaptersCache
         ) { _audiobook: Audiobook?, _tracksAsChapters: List<Chapter>? ->
             if (_audiobook?.chapters?.isNotEmpty() == true) {
                 // We would really prefer this because it doesn't have to be computed
@@ -156,9 +157,10 @@ class CurrentlyPlayingViewModel(
 
     val currentChapter = currentlyPlaying.chapter.asLiveData(viewModelScope.coroutineContext)
 
-    val chapterProgress = currentlyPlaying.chapter.combine(currentlyPlaying.track) { chapter: Chapter, track: MediaItemTrack ->
-        track.progress - chapter.startTimeOffset
-    }.asLiveData(viewModelScope.coroutineContext)
+    val chapterProgress =
+        currentlyPlaying.chapter.combine(currentlyPlaying.track) { chapter: Chapter, track: MediaItemTrack ->
+            track.progress - chapter.startTimeOffset
+        }.asLiveData(viewModelScope.coroutineContext)
 
     val chapterProgressString = chapterProgress.map { progress ->
         return@map DateUtils.formatElapsedTime(
@@ -167,9 +169,10 @@ class CurrentlyPlayingViewModel(
         )
     }
 
-    val chapterProgressForSlider = currentlyPlaying.chapter.combine(currentlyPlaying.track) { chapter: Chapter, track: MediaItemTrack ->
-        track.progress - chapter.startTimeOffset
-    }.filter { !isSliding }.asLiveData(viewModelScope.coroutineContext)
+    val chapterProgressForSlider =
+        currentlyPlaying.chapter.combine(currentlyPlaying.track) { chapter: Chapter, track: MediaItemTrack ->
+            track.progress - chapter.startTimeOffset
+        }.filter { !isSliding }.asLiveData(viewModelScope.coroutineContext)
 
     val trackProgressForSlider = currentlyPlaying.track
         .filter { !isSliding }
@@ -251,14 +254,15 @@ class CurrentlyPlayingViewModel(
         }
     }.asFlow()
 
-    val activeChapter = currentlyPlaying.chapter.combine(cachedChapter) { activeChapter: Chapter, cachedChapter: Chapter ->
-        Timber.i("Cached: $cachedChapter, active: $activeChapter")
-        if (activeChapter != EMPTY_CHAPTER && activeChapter.trackId == cachedChapter.trackId) {
-            activeChapter
-        } else {
-            cachedChapter
-        }
-    }.asLiveData(viewModelScope.coroutineContext)
+    val activeChapter =
+        currentlyPlaying.chapter.combine(cachedChapter) { activeChapter: Chapter, cachedChapter: Chapter ->
+            Timber.i("Cached: $cachedChapter, active: $activeChapter")
+            if (activeChapter != EMPTY_CHAPTER && activeChapter.trackId == cachedChapter.trackId) {
+                activeChapter
+            } else {
+                cachedChapter
+            }
+        }.asLiveData(viewModelScope.coroutineContext)
 
     private var _isLoadingTracks = MutableLiveData(false)
     val isLoadingTracks: LiveData<Boolean>
@@ -283,7 +287,9 @@ class CurrentlyPlayingViewModel(
     private val prefsChangeListener = SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
         when (key) {
             PrefsRepo.KEY_JUMP_FORWARD_SECONDS -> _jumpForwardsIcon.value = makeJumpForwardsIcon()
-            PrefsRepo.KEY_JUMP_BACKWARD_SECONDS -> _jumpBackwardsIcon.value = makeJumpBackwardsIcon()
+            PrefsRepo.KEY_JUMP_BACKWARD_SECONDS ->
+                _jumpBackwardsIcon.value =
+                    makeJumpBackwardsIcon()
         }
     }
 
@@ -407,16 +413,22 @@ class CurrentlyPlayingViewModel(
                 Timber.i("Seeking!")
                 transportControls?.sendCustomAction(action, null)
             } else {
-                val currentChapterIndex = currentlyPlaying.book.value.chapters.indexOf(currentlyPlaying.chapter.value)
+                val currentChapterIndex =
+                    currentlyPlaying.book.value.chapters.indexOf(currentlyPlaying.chapter.value)
                 var skipToChapterIndex: Int
                 if (forward) {
                     skipToChapterIndex = currentChapterIndex + 1
                     if (skipToChapterIndex < currentlyPlaying.book.value.chapters.size) {
                         val skipToChapter = currentlyPlaying.book.value.chapters[skipToChapterIndex]
-                        jumpToChapter(skipToChapter.startTimeOffset, currentlyPlaying.track.value.id, hasUserConfirmation = true)
+                        jumpToChapter(
+                            skipToChapter.startTimeOffset,
+                            currentlyPlaying.track.value.id,
+                            hasUserConfirmation = true
+                        )
                     } else {
                         val toast = Toast.makeText(
-                            Injector.get().applicationContext(), R.string.skip_forwards_reached_last_chapter,
+                            Injector.get().applicationContext(),
+                            R.string.skip_forwards_reached_last_chapter,
                             Toast.LENGTH_LONG
                         )
                         toast.setGravity(Gravity.BOTTOM, 0, 200)
@@ -426,7 +438,11 @@ class CurrentlyPlayingViewModel(
                     skipToChapterIndex = currentChapterIndex - 1
                     if (skipToChapterIndex < 0) skipToChapterIndex = 0
                     val skipToChapter = currentlyPlaying.book.value.chapters[skipToChapterIndex]
-                    jumpToChapter(skipToChapter.startTimeOffset, currentlyPlaying.track.value.id, hasUserConfirmation = true)
+                    jumpToChapter(
+                        skipToChapter.startTimeOffset,
+                        currentlyPlaying.track.value.id,
+                        hasUserConfirmation = true
+                    )
                 }
             }
         }
@@ -461,7 +477,10 @@ class CurrentlyPlayingViewModel(
     }
 
     fun skipBackwards() {
-        seekRelative(makeSkipBackward(prefsRepo), prefsRepo.jumpBackwardSeconds * MILLIS_PER_SECOND * -1)
+        seekRelative(
+            makeSkipBackward(prefsRepo),
+            prefsRepo.jumpBackwardSeconds * MILLIS_PER_SECOND * -1
+        )
     }
 
     private fun seekRelative(action: PlaybackStateCompat.CustomAction, offset: Long) {
@@ -573,47 +592,59 @@ class CurrentlyPlayingViewModel(
                         val duration = 5 * SECONDS_PER_MINUTE * MILLIS_PER_SECOND
                         BEGIN to duration
                     }
+
                     R.string.sleep_timer_duration_15_minutes -> {
                         val duration = 15 * SECONDS_PER_MINUTE * MILLIS_PER_SECOND
                         BEGIN to duration
                     }
+
                     R.string.sleep_timer_duration_30_minutes -> {
                         val duration = 30 * SECONDS_PER_MINUTE * MILLIS_PER_SECOND
                         BEGIN to duration
                     }
+
                     R.string.sleep_timer_duration_40_minutes -> {
                         val duration = 40 * SECONDS_PER_MINUTE * MILLIS_PER_SECOND
                         BEGIN to duration
                     }
+
                     R.string.sleep_timer_duration_60_minutes -> {
                         val duration = 60 * SECONDS_PER_MINUTE * MILLIS_PER_SECOND
                         BEGIN to duration
                     }
+
                     R.string.sleep_timer_duration_90_minutes -> {
                         val duration = 90 * SECONDS_PER_MINUTE * MILLIS_PER_SECOND
                         BEGIN to duration
                     }
+
                     R.string.sleep_timer_duration_120_minutes -> {
                         val duration = 120 * SECONDS_PER_MINUTE * MILLIS_PER_SECOND
                         BEGIN to duration
                     }
+
                     R.string.sleep_timer_duration_end_of_chapter -> {
                         val duration = (
-                            ((chapterDuration.value ?: 0L) - (
-                                chapterProgress.value
-                                    ?: 0L
-                                )) / prefsRepo.playbackSpeed
+                            (
+                                (chapterDuration.value ?: 0L) - (
+                                    chapterProgress.value
+                                        ?: 0L
+                                    )
+                                ) / prefsRepo.playbackSpeed
                             ).toLong()
                         BEGIN to duration
                     }
+
                     R.string.sleep_timer_append -> {
                         val additionalTime = 5 * SECONDS_PER_MINUTE * MILLIS_PER_SECOND
                         EXTEND to additionalTime
                     }
+
                     R.string.cancel -> {
                         setSleepTimerTitle(FormattableString.from(R.string.sleep_timer))
                         CANCEL to 0L
                     }
+
                     else -> throw NoWhenBranchMatchedException("Unknown duration picked for sleep timer")
                 }
                 hideSleepTimerChooser()
@@ -690,7 +721,9 @@ class CurrentlyPlayingViewModel(
                 setSleepTimerTitle(
                     FormattableString.ResourceString(
                         stringRes = R.string.sleep_timer_active_title,
-                        placeHolderStrings = listOf(sleepTimerTimeRemainingString.value ?: "<Error>")
+                        placeHolderStrings = listOf(
+                            sleepTimerTimeRemainingString.value ?: "<Error>"
+                        )
                     )
                 )
             } else {

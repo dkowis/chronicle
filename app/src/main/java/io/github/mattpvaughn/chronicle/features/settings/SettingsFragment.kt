@@ -78,7 +78,6 @@ class SettingsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         val binding = FragmentSettingsBinding.inflate(inflater, container, false)
         val viewModel = ViewModelProvider(this, viewModelFactory).get(SettingsViewModel::class.java)
 

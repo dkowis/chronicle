@@ -19,7 +19,7 @@ import javax.inject.Singleton
 @Singleton
 class ChronicleBillingManager @Inject constructor(
     applicationContext: Context,
-    private val prefsRepo: PrefsRepo,
+    private val prefsRepo: PrefsRepo
 ) {
 
     fun launchBillingFlow(activity: Activity) {

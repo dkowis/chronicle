@@ -674,7 +674,7 @@ class SettingsViewModel(
             PreferenceModel(
                 type = PreferenceType.CLICKABLE,
                 title = FormattableString.from(R.string.settings_version_title),
-                explanation = FormattableString.from(BuildConfig.VERSION_NAME),
+                explanation = FormattableString.from(BuildConfig.VERSION_NAME)
             ),
             PreferenceModel(
                 type = PreferenceType.CLICKABLE,

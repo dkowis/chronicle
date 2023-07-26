@@ -50,7 +50,6 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         val binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         binding.lifecycleOwner = viewLifecycleOwner

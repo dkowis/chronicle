@@ -21,7 +21,7 @@ import kotlin.math.roundToInt
 
 class MoveSyncLocationWorker(
     context: Context,
-    parameters: WorkerParameters,
+    parameters: WorkerParameters
 ) : CoroutineWorker(context, parameters) {
 
     private val notificationManager = NotificationManagerCompat.from(applicationContext)

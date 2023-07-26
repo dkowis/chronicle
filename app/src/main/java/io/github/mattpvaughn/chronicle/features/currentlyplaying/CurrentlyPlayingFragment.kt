@@ -59,7 +59,8 @@ class CurrentlyPlayingFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         localBroadcastManager.registerReceiver(
-            viewModel.onUpdateSleepTimer, IntentFilter(SleepTimer.ACTION_SLEEP_TIMER_CHANGE)
+            viewModel.onUpdateSleepTimer,
+            IntentFilter(SleepTimer.ACTION_SLEEP_TIMER_CHANGE)
         )
     }
 
@@ -73,7 +74,6 @@ class CurrentlyPlayingFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         // Activity and context are non-null on view creation. This informs lint about that
         val binding = FragmentCurrentlyPlayingBinding.inflate(inflater, container, false)
 

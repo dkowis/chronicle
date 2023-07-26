@@ -96,7 +96,8 @@ class MainActivityViewModel(
     }
 
     val chapters: DoubleLiveData<Audiobook, List<Chapter>, List<Chapter>> = DoubleLiveData(
-        audiobook, tracksAsChaptersCache
+        audiobook,
+        tracksAsChaptersCache
     ) { _audiobook: Audiobook?, _tracksAsChapters: List<Chapter>? ->
         if (_audiobook?.chapters?.isNotEmpty() == true) {
             // We would really prefer this because it doesn't have to be computed

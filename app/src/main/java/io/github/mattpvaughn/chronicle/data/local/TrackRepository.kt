@@ -29,7 +29,7 @@ interface ITrackRepository {
      */
     suspend fun loadTracksForAudiobook(
         bookId: Int,
-        forceUseNetwork: Boolean = false,
+        forceUseNetwork: Boolean = false
     ): Result<List<MediaItemTrack>, Throwable>
 
     /**
@@ -192,7 +192,7 @@ class TrackRepository @Inject constructor(
 
     override suspend fun syncTracksInBook(
         bookId: Int,
-        forceUseNetwork: Boolean,
+        forceUseNetwork: Boolean
     ): List<MediaItemTrack> =
         withContext(Dispatchers.IO) {
             val networkTracks = fetchNetworkTracksForBook(bookId)
@@ -219,7 +219,7 @@ class TrackRepository @Inject constructor(
 
     override suspend fun loadTracksForAudiobook(
         bookId: Int,
-        forceUseNetwork: Boolean,
+        forceUseNetwork: Boolean
     ): Result<List<MediaItemTrack>, Throwable> {
         return withContext(Dispatchers.IO) {
             val localTracks = trackDao.getAllTracksAsync()
@@ -341,13 +341,13 @@ class TrackRepository @Inject constructor(
     private data class TrackIdentifier(
         val parentId: Int,
         val title: String,
-        val duration: Long,
+        val duration: Long
     ) {
         companion object {
             fun from(mediaItemTrack: MediaItemTrack) = TrackIdentifier(
                 parentId = mediaItemTrack.parentKey,
                 title = mediaItemTrack.title,
-                duration = mediaItemTrack.duration,
+                duration = mediaItemTrack.duration
             )
         }
     }
@@ -371,7 +371,7 @@ class TrackRepository @Inject constructor(
                 return@map MediaItemTrack.merge(
                     network = networkTrack,
                     local = localTrack,
-                    forceUseNetwork = forcePreferNetwork,
+                    forceUseNetwork = forcePreferNetwork
                 )
             }
             val networkTrackIdentifier = TrackIdentifier.from(networkTrack)

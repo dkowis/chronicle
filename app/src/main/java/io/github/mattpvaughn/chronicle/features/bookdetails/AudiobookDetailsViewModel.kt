@@ -513,7 +513,6 @@ class AudiobookDetailsViewModel(
     }
 
     fun toggleWatched() {
-
         val notPlayedYet = (audiobook.value?.viewCount ?: 0) == 0L
 
         val prompt = if (notPlayedYet) {
@@ -549,7 +548,8 @@ class AudiobookDetailsViewModel(
             bookRepository.setWatched(inputAudiobook.id)
         }
         val toast = Toast.makeText(
-            Injector.get().applicationContext(), R.string.marked_as_played,
+            Injector.get().applicationContext(),
+            R.string.marked_as_played,
             Toast.LENGTH_LONG
         )
         toast.setGravity(Gravity.BOTTOM, 0, 200)
@@ -562,7 +562,8 @@ class AudiobookDetailsViewModel(
             bookRepository.setUnwatched(inputAudiobook.id)
         }
         val toast = Toast.makeText(
-            Injector.get().applicationContext(), R.string.marked_as_unplayed,
+            Injector.get().applicationContext(),
+            R.string.marked_as_unplayed,
             Toast.LENGTH_LONG
         )
         toast.setGravity(Gravity.BOTTOM, 0, 200)

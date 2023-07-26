@@ -38,7 +38,7 @@ fun makeCustomActionProviders(
         },
         SimpleCustomActionProvider(SKIP_TO_PREVIOUS) { player: Player, _: String, _: Bundle? ->
             player.skipToPrevious(trackListStateManager, currentlyPlaying, progressUpdater)
-        },
+        }
     )
 }
 

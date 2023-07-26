@@ -165,7 +165,8 @@ class PlexLoginRepo @Inject constructor(
             """Login state: token = $token,
                     |user token = ${user?.authToken},
                     |server token = ${server?.accessToken},
-                    |library = ${library?.name}""".trimMargin()
+                    |library = ${library?.name}
+            """.trimMargin()
         )
         _loginState.postEvent(
             when {

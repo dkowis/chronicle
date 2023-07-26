@@ -46,7 +46,7 @@ class CollectionDetailsViewModel(
         private val bookRepo: BookRepository,
         private val prefsRepo: PrefsRepo,
         private val sharedPreferences: SharedPreferences,
-        private val collectionRepo: CollectionsRepository,
+        private val collectionRepo: CollectionsRepository
     ) : ViewModelProvider.Factory {
 
         var collectionId: Int? = null
