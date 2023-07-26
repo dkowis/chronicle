@@ -11,6 +11,12 @@ plugins {
 ktlint {
     debug.set(true)
     disabledRules.set(listOf("no-wildcard-imports"))
+    filter {
+        exclude {
+            //Ignore all the build files.
+            it.file.path.contains("build.gradle.kts")
+        }
+    }
 }
 
 kotlin {

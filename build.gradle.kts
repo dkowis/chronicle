@@ -75,7 +75,8 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
 val installGitHook = tasks.register<Copy>("installGitHook") {
     from(file("${rootProject.rootDir}/pre-commit"))
     into { file("${rootProject.rootDir}/.git/hooks") }
-    fileMode = 777
+    //Octal 777 is 511 decimal (kotlin doesn't speak octal :()
+    fileMode = 511
 }
 
 tasks.getByPath(":app:preBuild").dependsOn(installGitHook)
